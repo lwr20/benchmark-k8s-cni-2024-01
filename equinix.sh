@@ -6,26 +6,33 @@ CURDIR=$(dirname $0)
 [ "$CURDIR" = "." ] && CURDIR=$(pwd)
 
 export KUBECONFIG=$CURDIR/setup/59-kubeconfig.yaml
-export SERVER_MTU=1500
+export SERVER_MTU=9000
 export SSHUSER=root
 export RESULTPREFIX="eq-metal"
 export PROJECT="730997aa-dfc5-429f-a05d-0effa65253c5"
 export TYPE="m3.small.x86"
+export CLUSTER_NAME=${CLUSTER_NAME:-"test"}
+export VLANID=4e3c07b7-d831-4bb3-ac55-5af4350a7682
 
 function init {
     echo "Setup instances on Equinix Metal"
     SERVEROPTS="-p $PROJECT -m da -O ubuntu_22_04 -P $TYPE"
 
-    metal device create -H a1 $SERVEROPTS
-    metal device create -H a2 $SERVEROPTS
-    metal device create -H a3 $SERVEROPTS
+    metal device create -H ${CLUSTER_NAME}-a1 $SERVEROPTS
+    metal device create -H ${CLUSTER_NAME}-a2 $SERVEROPTS
+    metal device create -H ${CLUSTER_NAME}-a3 $SERVEROPTS
 
     echo "Waiting for all servers to be deployed"
-    until metal device get --filter hostname=a1 --output json | jq -r .[].state | grep active; do echo "Trying again"; sleep 1; done
-    until metal device get --filter hostname=a2 --output json | jq -r .[].state | grep active; do echo "Trying again"; sleep 1; done
-    until metal device get --filter hostname=a3 --output json | jq -r .[].state | grep active; do echo "Trying again"; sleep 1; done
+    until metal device get --filter hostname=${CLUSTER_NAME}-a1 --output json | jq -r .[].state | grep active; do echo "Trying again"; sleep 1; done
+    until metal device get --filter hostname=${CLUSTER_NAME}-a2 --output json | jq -r .[].state | grep active; do echo "Trying again"; sleep 1; done
+    until metal device get --filter hostname=${CLUSTER_NAME}-a3 --output json | jq -r .[].state | grep active; do echo "Trying again"; sleep 1; done
 
     metal device list -o json | jq -r .[].state
+
+    # Put bond0 on each server onto the same VLAN
+    metal ports vlan --port-id $(metal device get --filter hostname=${CLUSTER_NAME}-a1 --output json | jq -r .[0].network_ports[0].bond.id) --assign ${VLANID}
+    metal ports vlan --port-id $(metal device get --filter hostname=${CLUSTER_NAME}-a2 --output json | jq -r .[0].network_ports[0].bond.id) --assign ${VLANID}
+    metal ports vlan --port-id $(metal device get --filter hostname=${CLUSTER_NAME}-a3 --output json | jq -r .[0].network_ports[0].bond.id) --assign ${VLANID}
 
     sleep 10
 
@@ -98,14 +105,14 @@ function rke2-down {
 }
 
 function clean {
-    yes | metal device delete -i "$(metal device get --filter hostname=a1 --output json | jq -r .[].id)"
-    yes | metal device delete -i "$(metal device get --filter hostname=a2 --output json | jq -r .[].id)"
-    yes | metal device delete -i "$(metal device get --filter hostname=a3 --output json | jq -r .[].id)"
+    yes | metal device delete -i "$(metal device get --filter hostname=${CLUSTER_NAME}-a1 --output json | jq -r .[].id)"
+    yes | metal device delete -i "$(metal device get --filter hostname=${CLUSTER_NAME}-a2 --output json | jq -r .[].id)"
+    yes | metal device delete -i "$(metal device get --filter hostname=${CLUSTER_NAME}-a3 --output json | jq -r .[].id)"
 
     echo "Waiting for all servers to be deleted"
-    until metal device get --filter hostname=a1 --output json | grep "null"; do echo "Trying again"; sleep 1; done
-    until metal device get --filter hostname=a2 --output json | grep "null"; do echo "Trying again"; sleep 1; done
-    until metal device get --filter hostname=a3 --output json | grep "null"; do echo "Trying again"; sleep 1; done
+    until metal device get --filter hostname=${CLUSTER_NAME}-a1 --output json | grep "null"; do echo "Trying again"; sleep 1; done
+    until metal device get --filter hostname=${CLUSTER_NAME}-a2 --output json | grep "null"; do echo "Trying again"; sleep 1; done
+    until metal device get --filter hostname=${CLUSTER_NAME}-a3 --output json | grep "null"; do echo "Trying again"; sleep 1; done
 }
 
 
@@ -164,13 +171,13 @@ function connect-ssh {
 function getip {
     case $1 in
         a1)
-            metal device get --filter hostname=a1 --output json | jq -r .[].ip_addresses[0].address
+            metal device get --filter hostname=${CLUSTER_NAME}-a1 --output json | jq -r .[].ip_addresses[0].address
             ;;
         a2)
-            metal device get --filter hostname=a2 --output json | jq -r .[].ip_addresses[0].address
+            metal device get --filter hostname=${CLUSTER_NAME}-a2 --output json | jq -r .[].ip_addresses[0].address
             ;;
         a3)
-            metal device get --filter hostname=a3 --output json | jq -r .[].ip_addresses[0].address
+            metal device get --filter hostname=${CLUSTER_NAME}-a3 --output json | jq -r .[].ip_addresses[0].address
             ;;
         *)
             echo "Unknown server $1"

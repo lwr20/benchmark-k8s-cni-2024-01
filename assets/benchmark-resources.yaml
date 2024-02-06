@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: Pod
-metadata: 
+metadata:
   labels:
     app: cni-benchmark
     node: a1
@@ -19,11 +19,11 @@ spec:
         name: iperf3
       - containerPort: 8080
         name: statexec
-  nodeName: a1
---- 
+  nodeName: __NODENAME__a1
+---
 apiVersion: v1
 kind: Pod
-metadata: 
+metadata:
   labels:
     app: cni-benchmark
     node: a2
@@ -42,11 +42,11 @@ spec:
         name: iperf3
       - containerPort: 8080
         name: statexec
-  nodeName: a2
---- 
+  nodeName: __NODENAME__a2
+---
 apiVersion: v1
 kind: Pod
-metadata: 
+metadata:
   labels:
     app: cni-benchmark
     node: a3
@@ -65,9 +65,9 @@ spec:
         name: iperf3
       - containerPort: 8080
         name: statexec
-  nodeName: a3
+  nodeName: __NODENAME__a3
 
---- 
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -75,7 +75,7 @@ metadata:
 spec:
   selector:
     app: cni-benchmark
-    node: a1
+    node: __NODENAME__a1
   ports:
   - name: iperf3
     port: 5201
@@ -88,7 +88,7 @@ spec:
   - name: statexec
     port: 8080
     targetPort: 8080
---- 
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -96,7 +96,7 @@ metadata:
 spec:
   selector:
     app: cni-benchmark
-    node: a2
+    node: __NODENAME__a2
   ports:
   - name: iperf3
     port: 5201
@@ -109,7 +109,7 @@ spec:
   - name: statexec
     port: 8080
     targetPort: 8080
---- 
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -117,7 +117,7 @@ metadata:
 spec:
   selector:
     app: cni-benchmark
-    node: a3
+    node: __NODENAME__a3
   ports:
   - name: iperf3
     port: 5201
@@ -130,4 +130,4 @@ spec:
   - name: statexec
     port: 8080
     targetPort: 8080
---- 
+---
