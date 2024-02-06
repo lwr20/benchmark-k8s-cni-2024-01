@@ -8,6 +8,7 @@ CURDIR=$(dirname $0)
 cd $CURDIR
 
 export KUBECONFIG=$CURDIR/setup/59-kubeconfig.yaml
+export CLUSTER_NAME=${CLUSTER_NAME:-"test"}
 
 BENCHID=""
 RUNID=""
@@ -48,14 +49,14 @@ function test_prepare {
     [ -e $OUTPUTDIR ] && rm -rf $OUTPUTDIR
     mkdir -p $OUTPUTDIR
 
-    if [ "${BENCHID:0:3}" = "st_" ]
-    then
-        ./equinix.sh init-tuned > /dev/null 2>&1
-    else
-        ./equinix.sh init > /dev/null 2>&1
-    fi
+    # if [ "${BENCHID:0:3}" = "st_" ]
+    # then
+    #     ./equinix.sh init-tuned > /dev/null 2>&1
+    # else
+    #     ./equinix.sh init > /dev/null 2>&1
+    # fi
 
-    sleep 60
+    # sleep 60
 
     log end
 }
@@ -151,7 +152,7 @@ function test_info {
     $CMDA2 uname -a > $OUTPUTDIR/${TEST}-server.uname
     $CMDA3 ip a > $OUTPUTDIR/${TEST}-client.interfaces
     $CMDA3 uname -a > $OUTPUTDIR/${TEST}-client.uname
-    $CURDIR/assets/test-netpol.sh > $OUTPUTDIR/${TEST}-netpol
+    # $CURDIR/assets/test-netpol.sh > $OUTPUTDIR/${TEST}-netpol
     log end
 
 }
@@ -177,8 +178,8 @@ function test_dts {
 
     log start
     servercmd iperf3 -s &
-    WAITPID=$!
     sleep 1
+    WAITPID=$(pgrep "kubectl")
     clientcmd iperf3 -c $DIRECT_A2 -O 1 -Z -t $TEST_DURATION --dont-fragment --json
     wait $WAITPID
 
@@ -200,8 +201,8 @@ function test_dtm {
 
     log start
     servercmd iperf3 -s &
-    WAITPID=$!
     sleep 1
+    WAITPID=$(pgrep "kubectl")
     clientcmd iperf3 -c $DIRECT_A2 -O 1 -P 8 -Z -t $TEST_DURATION --dont-fragment --json
     wait $WAITPID
 
@@ -222,8 +223,8 @@ function test_dus {
 
     log start
     servercmd iperf3 -s &
-    WAITPID=$!
     sleep 1
+    WAITPID=$(pgrep "kubectl")
     clientcmd iperf3 -c $DIRECT_A2 -O 1 -u -b 0 -Z -t $TEST_DURATION --json
     wait $WAITPID
 
@@ -246,8 +247,8 @@ function test_dum {
 
     log start
     servercmd iperf3 -s &
-    WAITPID=$!
     sleep 1
+    WAITPID=$(pgrep "kubectl")
     clientcmd iperf3 -c $DIRECT_A2 -O 1 -u -b 0 -P 8 -Z -t $TEST_DURATION --json
     wait $WAITPID
 
@@ -270,8 +271,8 @@ function test_sts {
 
     log start
     servercmd iperf3 -s &
-    WAITPID=$!
     sleep 1
+    WAITPID=$(pgrep "kubectl")
     clientcmd iperf3 -c $SVC_A2 -O 1 -Z -t $TEST_DURATION --dont-fragment --json
     wait $WAITPID
 
@@ -292,8 +293,8 @@ function test_stm {
 
     log start
     servercmd iperf3 -s &
-    WAITPID=$!
     sleep 1
+    WAITPID=$(pgrep "kubectl")
     clientcmd iperf3 -c $SVC_A2 -O 1 -P 8 -Z -t $TEST_DURATION --dont-fragment --json
     wait $WAITPID
 
@@ -314,8 +315,8 @@ function test_sus {
 
     log start
     servercmd iperf3 -s &
-    WAITPID=$!
     sleep 1
+    WAITPID=$(pgrep "kubectl")
     clientcmd iperf3 -c $SVC_A2 -O 1 -u -b 0 -Z -t $TEST_DURATION --json
     wait $WAITPID
 
@@ -338,8 +339,8 @@ function test_sum {
 
     log start
     servercmd iperf3 -s &
-    WAITPID=$!
     sleep 1
+    WAITPID=$(pgrep "kubectl")
     clientcmd iperf3 -c $SVC_A2 -O 1 -u -b 0 -P 8 -Z -t $TEST_DURATION --json
     wait $WAITPID
 
@@ -522,10 +523,9 @@ function bench_cni {
     for RUNID in $(seq 1 ${BENCHMARK_NUMBER_OF_RUNS}); do
 
         test_prepare
-
-        test_setup
-
-        kubectl apply -f ./assets/benchmark-resources.yaml
+        kubectl delete -f assets/benchmark-resources.yaml
+        # test_setup
+        cat ./assets/benchmark-resources.yaml | sed "s/__NODENAME__/${CLUSTER_NAME}-/g" | kubectl apply -f -
 
         kubectl wait --for=condition=Ready pod/cni-benchmark-a1 --timeout=300s
         kubectl wait --for=condition=Ready pod/cni-benchmark-a2 --timeout=300s
@@ -537,7 +537,7 @@ function bench_cni {
 
         test_info
 
-        test_idle
+        # test_idle
 
         test_dts
         test_dtm
@@ -551,7 +551,7 @@ function bench_cni {
 
         cat $OUTPUTDIR/*.results > $OUTPUTDIR/all.results
 
-        test_cleanup
+        # test_cleanup
     done
 
     compute_results

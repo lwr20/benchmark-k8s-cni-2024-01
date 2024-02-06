@@ -61,8 +61,9 @@ function rke2-up {
     $CURDIR/setup/50-setup-rke2.sh cp ${SSHUSER}@$A1IP
 
     echo "Setup RKE2 worker on a2 ($A2IP) and a3 ($A3IP)"
-    $CURDIR/setup/50-setup-rke2.sh worker ${SSHUSER}@$A2IP $A1IP
-    $CURDIR/setup/50-setup-rke2.sh worker ${SSHUSER}@$A3IP $A1IP
+    $CURDIR/setup/50-setup-rke2.sh worker ${SSHUSER}@$A2IP "192.168.2.1"
+    $CURDIR/setup/50-setup-rke2.sh worker ${SSHUSER}@$A3IP "192.168.2.1"
+    sed -i "s/192.168.2.1/$A1IP/g" $CURDIR/setup/59-kubeconfig.yaml
 
     echo "RKE2 ready"
 }
