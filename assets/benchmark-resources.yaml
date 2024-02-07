@@ -75,7 +75,7 @@ metadata:
 spec:
   selector:
     app: cni-benchmark
-    node: __NODENAME__a1
+    node: a1
   ports:
   - name: iperf3
     port: 5201
@@ -96,7 +96,7 @@ metadata:
 spec:
   selector:
     app: cni-benchmark
-    node: __NODENAME__a2
+    node: a2
   ports:
   - name: iperf3
     port: 5201
@@ -117,7 +117,7 @@ metadata:
 spec:
   selector:
     app: cni-benchmark
-    node: __NODENAME__a3
+    node: a3
   ports:
   - name: iperf3
     port: 5201
