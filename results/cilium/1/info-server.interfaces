@@ -4,9 +4,9 @@
        valid_lft forever preferred_lft forever
     inet6 ::1/128 scope host 
        valid_lft forever preferred_lft forever
-15: eth0@if16: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 qdisc noqueue state UP group default qlen 1000
-    link/ether 42:11:71:54:a2:8e brd ff:ff:ff:ff:ff:ff link-netnsid 0
-    inet 10.0.1.194/32 scope global eth0
+14: eth0@if15: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 76:e4:f8:55:ad:91 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 10.0.1.146/32 scope global eth0
        valid_lft forever preferred_lft forever
-    inet6 fe80::4011:71ff:fe54:a28e/64 scope link 
+    inet6 fe80::74e4:f8ff:fe55:ad91/64 scope link 
        valid_lft forever preferred_lft forever
