@@ -1,1 +1,1 @@
-kubectl exec -it cni-benchmark-a3 --  statexec -f dtm-client.prom -d 10 -l id=calico-bpf-vxlan -l run=1 -i dtm -mst 1704067200000 -dbc 11  -c 10.42.164.83 --  iperf3 -c 10.42.164.83 -O 1 -P 8 -Z -t 60 --dont-fragment --json
+kubectl exec -it cni-benchmark-a3 --  statexec -f dtm-client.prom -d 10 -l id=calico-bpf-vxlan -l run=1 -i dtm -mst 1704067200000 -dbc 11  -c 10.42.164.114 --  iperf3 -c 10.42.164.114 -O 1 -P 8 -Z -t 60 --dont-fragment --json

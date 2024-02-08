@@ -1,0 +1,204 @@
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dts",role="client",mode="system"} 0.049005 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dts",role="client",mode="user"} 0.033435 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="dts",role="client"} 1451195904 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dts",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dts",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="dts",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="1",test="dts"} 2998483062.396239 1704067200000
+benchmark_iperf_retransmits_count{id="calico-bpf-vxlan",run="1",test="dts"} 13611 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dtm",role="client",mode="system"} 0.216049 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dtm",role="client",mode="user"} 0.049958 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="dtm",role="client"} 1467786816 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dtm",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dtm",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="dtm",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="1",test="dtm"} 10683772010.147993 1704067200000
+benchmark_iperf_retransmits_count{id="calico-bpf-vxlan",run="1",test="dtm"} 78853 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dus",role="client",mode="system"} 0.263719 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dus",role="client",mode="user"} 0.082607 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="dus",role="client"} 1439998464 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dus",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dus",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="dus",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="1",test="dus"} 3689199751.68735 1704067200000
+benchmark_iperf_jitter_milliseconds{id="calico-bpf-vxlan",run="1",test="dus"} 0.0007691934538300426 1704067200000
+benchmark_iperf_lost_percent{id="calico-bpf-vxlan",run="1",test="dus"} 7.6962765135095 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dum",role="client",mode="system"} 2.085969 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dum",role="client",mode="user"} 0.445249 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="dum",role="client"} 1434314624 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dum",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="dum",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="dum",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="1",test="dum"} 19862218760.9988 1704067200000
+benchmark_iperf_jitter_milliseconds{id="calico-bpf-vxlan",run="1",test="dum"} 0.0029400241698915555 1704067200000
+benchmark_iperf_lost_percent{id="calico-bpf-vxlan",run="1",test="dum"} 16.92552678365818 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="sts",role="client",mode="system"} 0.052101 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="sts",role="client",mode="user"} 0.046367 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="sts",role="client"} 1474711168 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="sts",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="sts",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="sts",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="1",test="sts"} 2843263071.44017 1704067200000
+benchmark_iperf_retransmits_count{id="calico-bpf-vxlan",run="1",test="sts"} 14538 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="stm",role="client",mode="system"} 0.221443 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="stm",role="client",mode="user"} 0.049137 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="stm",role="client"} 1485535040 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="stm",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="stm",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="stm",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="1",test="stm"} 13748079533.956627 1704067200000
+benchmark_iperf_retransmits_count{id="calico-bpf-vxlan",run="1",test="stm"} 79073 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="sus",role="client",mode="system"} 0.239789 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="sus",role="client",mode="user"} 0.076051 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="sus",role="client"} 1452255360 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="sus",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="sus",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="sus",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="1",test="sus"} 3441916362.721656 1704067200000
+benchmark_iperf_jitter_milliseconds{id="calico-bpf-vxlan",run="1",test="sus"} 0.001115772521416115 1704067200000
+benchmark_iperf_lost_percent{id="calico-bpf-vxlan",run="1",test="sus"} 7.181538929068791 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="sum",role="client",mode="system"} 1.885682 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="sum",role="client",mode="user"} 0.394769 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="sum",role="client"} 1449187840 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="sum",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="1",test="sum",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="1",test="sum",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="1",test="sum"} 20798378506.67262 1704067200000
+benchmark_iperf_jitter_milliseconds{id="calico-bpf-vxlan",run="1",test="sum"} 0.0029719584463269444 1704067200000
+benchmark_iperf_lost_percent{id="calico-bpf-vxlan",run="1",test="sum"} 4.457323601375767 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dts",role="client",mode="system"} 0.052116 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dts",role="client",mode="user"} 0.040316 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="dts",role="client"} 1474202176 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dts",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dts",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="dts",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="2",test="dts"} 3470720803.7846766 1704067200000
+benchmark_iperf_retransmits_count{id="calico-bpf-vxlan",run="2",test="dts"} 10538 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dtm",role="client",mode="system"} 0.212613 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dtm",role="client",mode="user"} 0.050942 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="dtm",role="client"} 1482462528 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dtm",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dtm",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="dtm",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="2",test="dtm"} 11112589792.82969 1704067200000
+benchmark_iperf_retransmits_count{id="calico-bpf-vxlan",run="2",test="dtm"} 80938 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dus",role="client",mode="system"} 0.255696 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dus",role="client",mode="user"} 0.072447 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="dus",role="client"} 1467850048 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dus",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dus",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="dus",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="2",test="dus"} 3792208810.261198 1704067200000
+benchmark_iperf_jitter_milliseconds{id="calico-bpf-vxlan",run="2",test="dus"} 0.009220809232046785 1704067200000
+benchmark_iperf_lost_percent{id="calico-bpf-vxlan",run="2",test="dus"} 8.306950638758764 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dum",role="client",mode="system"} 2.079380 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dum",role="client",mode="user"} 0.423775 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="dum",role="client"} 1457621440 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dum",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="dum",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="dum",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="2",test="dum"} 21528949238.47894 1704067200000
+benchmark_iperf_jitter_milliseconds{id="calico-bpf-vxlan",run="2",test="dum"} 0.004116682019304018 1704067200000
+benchmark_iperf_lost_percent{id="calico-bpf-vxlan",run="2",test="dum"} 9.66459906312341 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="sts",role="client",mode="system"} 0.055719 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="sts",role="client",mode="user"} 0.036218 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="sts",role="client"} 1468803904 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="sts",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="sts",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="sts",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="2",test="sts"} 5075500173.72399 1704067200000
+benchmark_iperf_retransmits_count{id="calico-bpf-vxlan",run="2",test="sts"} 13200 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="stm",role="client",mode="system"} 0.226670 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="stm",role="client",mode="user"} 0.046022 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="stm",role="client"} 1484502400 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="stm",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="stm",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="stm",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="2",test="stm"} 11996029862.096958 1704067200000
+benchmark_iperf_retransmits_count{id="calico-bpf-vxlan",run="2",test="stm"} 76970 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="sus",role="client",mode="system"} 0.236019 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="sus",role="client",mode="user"} 0.066544 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="sus",role="client"} 1466543424 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="sus",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="sus",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="sus",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="2",test="sus"} 3620748628.4191275 1704067200000
+benchmark_iperf_jitter_milliseconds{id="calico-bpf-vxlan",run="2",test="sus"} 0.016788985187381818 1704067200000
+benchmark_iperf_lost_percent{id="calico-bpf-vxlan",run="2",test="sus"} 5.837589591023656 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="sum",role="client",mode="system"} 1.916856 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="sum",role="client",mode="user"} 0.399987 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="sum",role="client"} 1454859584 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="sum",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="2",test="sum",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="2",test="sum",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="2",test="sum"} 19760457047.7391 1704067200000
+benchmark_iperf_jitter_milliseconds{id="calico-bpf-vxlan",run="2",test="sum"} 0.003133635855377648 1704067200000
+benchmark_iperf_lost_percent{id="calico-bpf-vxlan",run="2",test="sum"} 10.735962879876595 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dts",role="client",mode="system"} 0.058348 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dts",role="client",mode="user"} 0.036877 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="dts",role="client"} 1481896911 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dts",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dts",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="dts",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="3",test="dts"} 3694821548.410762 1704067200000
+benchmark_iperf_retransmits_count{id="calico-bpf-vxlan",run="3",test="dts"} 11446 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dtm",role="client",mode="system"} 0.246722 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dtm",role="client",mode="user"} 0.049443 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="dtm",role="client"} 1493259648 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dtm",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dtm",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="dtm",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="3",test="dtm"} 10695930398.845537 1704067200000
+benchmark_iperf_retransmits_count{id="calico-bpf-vxlan",run="3",test="dtm"} 100563 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dus",role="client",mode="system"} 0.258159 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dus",role="client",mode="user"} 0.068351 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="dus",role="client"} 1461965312 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dus",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dus",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="dus",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="3",test="dus"} 3819032269.73302 1704067200000
+benchmark_iperf_jitter_milliseconds{id="calico-bpf-vxlan",run="3",test="dus"} 0.006060082876905997 1704067200000
+benchmark_iperf_lost_percent{id="calico-bpf-vxlan",run="3",test="dus"} 7.94820961857946 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dum",role="client",mode="system"} 2.030285 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dum",role="client",mode="user"} 0.418381 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="dum",role="client"} 1465434880 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dum",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="dum",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="dum",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="3",test="dum"} 18232929818.33236 1704067200000
+benchmark_iperf_jitter_milliseconds{id="calico-bpf-vxlan",run="3",test="dum"} 0.0567516254281486 1704067200000
+benchmark_iperf_lost_percent{id="calico-bpf-vxlan",run="3",test="dum"} 22.394180409524672 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="sts",role="client",mode="system"} 0.054246 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="sts",role="client",mode="user"} 0.035727 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="sts",role="client"} 1498886336 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="sts",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="sts",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="sts",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="3",test="sts"} 3072276465.95553 1704067200000
+benchmark_iperf_retransmits_count{id="calico-bpf-vxlan",run="3",test="sts"} 11602 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="stm",role="client",mode="system"} 0.242049 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="stm",role="client",mode="user"} 0.058956 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="stm",role="client"} 1513171648 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="stm",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="stm",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="stm",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="3",test="stm"} 10684314558.208914 1704067200000
+benchmark_iperf_retransmits_count{id="calico-bpf-vxlan",run="3",test="stm"} 75473 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="sus",role="client",mode="system"} 0.244702 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="sus",role="client",mode="user"} 0.073099 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="sus",role="client"} 1505251008 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="sus",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="sus",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="sus",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="3",test="sus"} 3563285897.7589183 1704067200000
+benchmark_iperf_jitter_milliseconds{id="calico-bpf-vxlan",run="3",test="sus"} 0.0007572044290457835 1704067200000
+benchmark_iperf_lost_percent{id="calico-bpf-vxlan",run="3",test="sus"} 4.00930563815384 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="sum",role="client",mode="system"} 1.896670 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="sum",role="client",mode="user"} 0.401455 1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="sum",role="client"} 1490519360 1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="sum",role="server",mode="system"}  1704067200000
+benchmark_cpu_seconds{id="calico-bpf-vxlan",run="3",test="sum",role="server",mode="user"}  1704067200000
+benchmark_mem_bytes{id="calico-bpf-vxlan",run="3",test="sum",role="server"}  1704067200000
+benchmark_iperf_bandwidth_bits_per_second{id="calico-bpf-vxlan",run="3",test="sum"} 19749826933.9647 1704067200000
+benchmark_iperf_jitter_milliseconds{id="calico-bpf-vxlan",run="3",test="sum"} 0.003269781844706061 1704067200000
+benchmark_iperf_lost_percent{id="calico-bpf-vxlan",run="3",test="sum"} 10.081052881872916 1704067200000
