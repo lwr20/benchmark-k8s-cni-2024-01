@@ -146,6 +146,7 @@ function extract_metrics {
 
 function test_info {
     TEST="info"
+    setup_test_pods
 
     log start
     $CMDA2 ip a > $OUTPUTDIR/${TEST}-server.interfaces
@@ -159,6 +160,7 @@ function test_info {
 
 function test_idle {
     TEST="idle"
+    setup_test_pods
 
     log start
     servercmd sleep $TEST_DURATION &
@@ -175,6 +177,7 @@ function test_idle {
 # Direct TCP Single Stream
 function test_dts {
     TEST="dts"
+    setup_test_pods
 
     log start
     servercmd iperf3 -s &
@@ -198,6 +201,7 @@ function test_dts {
 # Direct TCP Multi Stream
 function test_dtm {
     TEST="dtm"
+    setup_test_pods
 
     log start
     servercmd iperf3 -s &
@@ -220,6 +224,7 @@ function test_dtm {
 # Direct UDP Single Stream
 function test_dus {
     TEST="dus"
+    setup_test_pods
 
     log start
     servercmd iperf3 -s &
@@ -243,6 +248,8 @@ function test_dus {
 
 # Direct UDP Multi Stream
 function test_dum {
+    setup_test_pods
+
     TEST="dum"
 
     log start
@@ -267,6 +274,8 @@ function test_dum {
 
 # Service TCP Single Stream
 function test_sts {
+    setup_test_pods
+
     TEST="sts"
 
     log start
@@ -289,6 +298,9 @@ function test_sts {
 
 # Service TCP Multi Stream
 function test_stm {
+
+    setup_test_pods
+
     TEST="stm"
 
     log start
@@ -311,6 +323,8 @@ function test_stm {
 
 # Service UDP Single Stream
 function test_sus {
+    setup_test_pods
+
     TEST="sus"
 
     log start
@@ -336,6 +350,7 @@ function test_sus {
 # Service UDP Multi Stream
 function test_sum {
     TEST="sum"
+    setup_test_pods
 
     log start
     servercmd iperf3 -s &
@@ -506,6 +521,20 @@ function compute_results {
     done
 }
 
+function setup_test_pods {
+    kubectl delete -f assets/benchmark-resources.yaml
+    cat ./assets/benchmark-resources.yaml | sed "s/__NODENAME__/${CLUSTER_NAME}-/g" | kubectl apply -f -
+
+    kubectl wait --for=condition=Ready pod/cni-benchmark-a1 --timeout=300s
+    kubectl wait --for=condition=Ready pod/cni-benchmark-a2 --timeout=300s
+    kubectl wait --for=condition=Ready pod/cni-benchmark-a3 --timeout=300s
+
+    DIRECT_A1="$(kubectl get pod cni-benchmark-a1 -o jsonpath='{.status.podIP}')"
+    DIRECT_A2="$(kubectl get pod cni-benchmark-a2 -o jsonpath='{.status.podIP}')"
+    DIRECT_A3="$(kubectl get pod cni-benchmark-a3 -o jsonpath='{.status.podIP}')"
+}
+
+
 function bench_cni {
     BENCHID="$1"
     shift
@@ -523,19 +552,9 @@ function bench_cni {
     for RUNID in $(seq 1 ${BENCHMARK_NUMBER_OF_RUNS}); do
 
         test_prepare
-        kubectl delete -f assets/benchmark-resources.yaml
         # test_setup
-        cat ./assets/benchmark-resources.yaml | sed "s/__NODENAME__/${CLUSTER_NAME}-/g" | kubectl apply -f -
 
-        kubectl wait --for=condition=Ready pod/cni-benchmark-a1 --timeout=300s
-        kubectl wait --for=condition=Ready pod/cni-benchmark-a2 --timeout=300s
-        kubectl wait --for=condition=Ready pod/cni-benchmark-a3 --timeout=300s
-
-        DIRECT_A1="$(kubectl get pod cni-benchmark-a1 -o jsonpath='{.status.podIP}')"
-        DIRECT_A2="$(kubectl get pod cni-benchmark-a2 -o jsonpath='{.status.podIP}')"
-        DIRECT_A3="$(kubectl get pod cni-benchmark-a3 -o jsonpath='{.status.podIP}')"
-
-        test_info
+        # test_info
 
         # test_idle
 
