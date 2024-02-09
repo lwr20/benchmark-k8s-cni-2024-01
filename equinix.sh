@@ -2,13 +2,12 @@
 
 set -x
 
-CURDIR=$(dirname $0)
+CURDIR=$(dirname "$0")
 [ "$CURDIR" = "." ] && CURDIR=$(pwd)
 
-export KUBECONFIG=$CURDIR/setup/59-kubeconfig.yaml
-export SERVER_MTU=9000
+export KUBECONFIG="$CURDIR/setup/59-kubeconfig.yaml"
+export SERVER_MTU=${SERVER_MTU:-"1500"}
 export SSHUSER=root
-export RESULTPREFIX="eq-metal"
 export PROJECT="730997aa-dfc5-429f-a05d-0effa65253c5"
 export TYPE="m3.small.x86"
 export CLUSTER_NAME=${CLUSTER_NAME:-"test"}
@@ -18,21 +17,21 @@ function init {
     echo "Setup instances on Equinix Metal"
     SERVEROPTS="-p $PROJECT -m da -O ubuntu_22_04 -P $TYPE"
 
-    metal device create -H ${CLUSTER_NAME}-a1 $SERVEROPTS
-    metal device create -H ${CLUSTER_NAME}-a2 $SERVEROPTS
-    metal device create -H ${CLUSTER_NAME}-a3 $SERVEROPTS
+    metal device create -H "${CLUSTER_NAME}"-a1 ${SERVEROPTS}
+    metal device create -H "${CLUSTER_NAME}"-a2 ${SERVEROPTS}
+    metal device create -H "${CLUSTER_NAME}"-a3 ${SERVEROPTS}
 
     echo "Waiting for all servers to be deployed"
-    until metal device get --filter hostname=${CLUSTER_NAME}-a1 --output json | jq -r .[].state | grep active; do echo "Trying again"; sleep 1; done
-    until metal device get --filter hostname=${CLUSTER_NAME}-a2 --output json | jq -r .[].state | grep active; do echo "Trying again"; sleep 1; done
-    until metal device get --filter hostname=${CLUSTER_NAME}-a3 --output json | jq -r .[].state | grep active; do echo "Trying again"; sleep 1; done
+    until metal device get --filter hostname="${CLUSTER_NAME}"-a1 --output json | jq -r .[].state | grep active; do echo "Trying again"; sleep 1; done
+    until metal device get --filter hostname="${CLUSTER_NAME}"-a2 --output json | jq -r .[].state | grep active; do echo "Trying again"; sleep 1; done
+    until metal device get --filter hostname="${CLUSTER_NAME}"-a3 --output json | jq -r .[].state | grep active; do echo "Trying again"; sleep 1; done
 
     metal device list -o json | jq -r .[].state
 
     # Put bond0 on each server onto the same VLAN
-    metal ports vlan --port-id $(metal device get --filter hostname=${CLUSTER_NAME}-a1 --output json | jq -r .[0].network_ports[0].bond.id) --assign ${VLANID}
-    metal ports vlan --port-id $(metal device get --filter hostname=${CLUSTER_NAME}-a2 --output json | jq -r .[0].network_ports[0].bond.id) --assign ${VLANID}
-    metal ports vlan --port-id $(metal device get --filter hostname=${CLUSTER_NAME}-a3 --output json | jq -r .[0].network_ports[0].bond.id) --assign ${VLANID}
+    metal ports vlan --port-id "$(metal device get --filter hostname="${CLUSTER_NAME}"-a1 --output json | jq -r .[0].network_ports[0].bond.id)" --assign ${VLANID}
+    metal ports vlan --port-id "$(metal device get --filter hostname="${CLUSTER_NAME}"-a2 --output json | jq -r .[0].network_ports[0].bond.id)" --assign ${VLANID}
+    metal ports vlan --port-id "$(metal device get --filter hostname="${CLUSTER_NAME}"-a3 --output json | jq -r .[0].network_ports[0].bond.id)" --assign ${VLANID}
 
     sleep 10
 
@@ -41,15 +40,15 @@ function init {
     A3IP=$(getip a3)
 
     WAITPID=""
-    $CURDIR/setup/20-os-prepare.sh ${SSHUSER}@$A1IP &
+    "$CURDIR/setup/20-os-prepare.sh ${SSHUSER}@$A1IP" &
     WAITPID="$WAITPID $!"
-    $CURDIR/setup/20-os-prepare.sh ${SSHUSER}@$A2IP &
+    "$CURDIR/setup/20-os-prepare.sh ${SSHUSER}@$A2IP" &
     WAITPID="$WAITPID $!"
-    $CURDIR/setup/20-os-prepare.sh ${SSHUSER}@$A3IP &
+    "$CURDIR/setup/20-os-prepare.sh ${SSHUSER}@$A3IP" &
     WAITPID="$WAITPID $!"
 
     echo "Waiting for all servers to be prepared"
-    wait $WAITPID
+    wait "$WAITPID"
 
 }
 function rke2-up {
@@ -58,12 +57,12 @@ function rke2-up {
     A3IP=$(getip a3)
 
     echo "Setup RKE2 controlplane on a1 ($A1IP)"
-    $CURDIR/setup/50-setup-rke2.sh cp ${SSHUSER}@$A1IP
+    "$CURDIR/setup/50-setup-rke2.sh" cp "${SSHUSER}@$A1IP"
 
     echo "Setup RKE2 worker on a2 ($A2IP) and a3 ($A3IP)"
-    $CURDIR/setup/50-setup-rke2.sh worker ${SSHUSER}@$A2IP "192.168.2.1"
-    $CURDIR/setup/50-setup-rke2.sh worker ${SSHUSER}@$A3IP "192.168.2.1"
-    sed -i "s/192.168.2.1/$A1IP/g" $CURDIR/setup/59-kubeconfig.yaml
+    "$CURDIR/setup/50-setup-rke2.sh" worker "${SSHUSER}@$A2IP" "192.168.2.1"
+    "$CURDIR/setup/50-setup-rke2.sh" worker "${SSHUSER}@$A3IP" "192.168.2.1"
+    sed -i "s/192.168.2.1/$A1IP/g" "$CURDIR/setup/59-kubeconfig.yaml"
 
     echo "RKE2 ready"
 }
@@ -75,7 +74,7 @@ function setup-cni {
     A3IP=$(getip a3)
 
     echo "Setup CNI $1"
-    $CURDIR/setup/60-setup-cni.sh $1
+    "$CURDIR/setup/60-setup-cni.sh" "$1"
 
     echo "Waiting for all pods to be running or completed"
     while [ "$(kubectl get pods -A --no-headers | grep -v Running | grep -v Completed)" != "" ]; do
@@ -92,28 +91,28 @@ function rke2-down {
 
     echo "Tear down RKE2"
     WAITPID=""
-    $CURDIR/setup/80-teardown-rke2.sh ${SSHUSER}@$A1IP &
+    "$CURDIR/setup/80-teardown-rke2.sh" "${SSHUSER}@$A1IP" &
     WAITPID="$WAITPID $!"
-    $CURDIR/setup/80-teardown-rke2.sh ${SSHUSER}@$A2IP &
+    "$CURDIR/setup/80-teardown-rke2.sh" "${SSHUSER}@$A2IP" &
     WAITPID="$WAITPID $!"
-    $CURDIR/setup/80-teardown-rke2.sh ${SSHUSER}@$A3IP &
+    "$CURDIR/setup/80-teardown-rke2.sh" "${SSHUSER}@$A3IP" &
     WAITPID="$WAITPID $!"
 
     echo "Waiting for all servers to be cleaned up"
-    wait $WAITPID
+    wait "$WAITPID"
 
     echo "RKE2 down"
 }
 
 function clean {
-    yes | metal device delete -i "$(metal device get --filter hostname=${CLUSTER_NAME}-a1 --output json | jq -r .[].id)"
-    yes | metal device delete -i "$(metal device get --filter hostname=${CLUSTER_NAME}-a2 --output json | jq -r .[].id)"
-    yes | metal device delete -i "$(metal device get --filter hostname=${CLUSTER_NAME}-a3 --output json | jq -r .[].id)"
+    yes | metal device delete -i "$(metal device get --filter hostname="${CLUSTER_NAME}-a1" --output json | jq -r .[].id)"
+    yes | metal device delete -i "$(metal device get --filter hostname="${CLUSTER_NAME}-a2" --output json | jq -r .[].id)"
+    yes | metal device delete -i "$(metal device get --filter hostname="${CLUSTER_NAME}-a3" --output json | jq -r .[].id)"
 
     echo "Waiting for all servers to be deleted"
-    until metal device get --filter hostname=${CLUSTER_NAME}-a1 --output json | grep "null"; do echo "Trying again"; sleep 1; done
-    until metal device get --filter hostname=${CLUSTER_NAME}-a2 --output json | grep "null"; do echo "Trying again"; sleep 1; done
-    until metal device get --filter hostname=${CLUSTER_NAME}-a3 --output json | grep "null"; do echo "Trying again"; sleep 1; done
+    until metal device get --filter hostname="${CLUSTER_NAME}-a1" --output json | grep "null"; do echo "Trying again"; sleep 1; done
+    until metal device get --filter hostname="${CLUSTER_NAME}-a2" --output json | grep "null"; do echo "Trying again"; sleep 1; done
+    until metal device get --filter hostname="${CLUSTER_NAME}-a3" --output json | grep "null"; do echo "Trying again"; sleep 1; done
 }
 
 
@@ -166,19 +165,19 @@ EOF
 function connect-ssh {
     SSHIP=$(getip "$1")
     shift
-    exec ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${SSHUSER}@$SSHIP "$@"
+    exec ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${SSHUSER}@$SSHIP" "$@"
 }
 
 function getip {
     case $1 in
         a1)
-            metal device get --filter hostname=${CLUSTER_NAME}-a1 --output json | jq -r .[].ip_addresses[0].address
+            metal device get --filter hostname="${CLUSTER_NAME}-a1" --output json | jq -r .[].ip_addresses[0].address
             ;;
         a2)
-            metal device get --filter hostname=${CLUSTER_NAME}-a2 --output json | jq -r .[].ip_addresses[0].address
+            metal device get --filter hostname="${CLUSTER_NAME}-a2" --output json | jq -r .[].ip_addresses[0].address
             ;;
         a3)
-            metal device get --filter hostname=${CLUSTER_NAME}-a3 --output json | jq -r .[].ip_addresses[0].address
+            metal device get --filter hostname="${CLUSTER_NAME}-a3" --output json | jq -r .[].ip_addresses[0].address
             ;;
         *)
             echo "Unknown server $1"
@@ -201,21 +200,21 @@ while [ "$1" != "" ]; do
             rke2-down
             ;;
         setup-cni|cni)
-            setup-cni $2
+            setup-cni "$2"
             shift
             ;;
         cleanup|clean|c)
             clean
             ;;
-        debugpods|debug|d)
+        debugpods|debug)
             debugpods
             ;;
         ssh|s)
-            connect-ssh $2 "${@:3}"
+            connect-ssh "$2" "${@:3}"
             shift
             ;;
         getip|ip)
-            getip $2
+            getip "$2"
             shift
             ;;
         *)
