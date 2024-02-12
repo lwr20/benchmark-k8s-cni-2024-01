@@ -40,15 +40,15 @@ function init {
     A3IP=$(getip a3)
 
     WAITPID=""
-    "$CURDIR/setup/20-os-prepare.sh ${SSHUSER}@$A1IP" &
-    WAITPID="$WAITPID $!"
-    "$CURDIR/setup/20-os-prepare.sh ${SSHUSER}@$A2IP" &
-    WAITPID="$WAITPID $!"
-    "$CURDIR/setup/20-os-prepare.sh ${SSHUSER}@$A3IP" &
-    WAITPID="$WAITPID $!"
+    "$CURDIR"/setup/20-os-prepare.sh ${SSHUSER}@"$A1IP" &
+    WAITPID="${WAITPID}" $!
+    "$CURDIR"/setup/20-os-prepare.sh ${SSHUSER}@"$A2IP" &
+    WAITPID="${WAITPID}" $!
+    "$CURDIR"/setup/20-os-prepare.sh ${SSHUSER}@"$A3IP" &
+    WAITPID="${WAITPID}" $!
 
     echo "Waiting for all servers to be prepared"
-    wait "$WAITPID"
+    wait "${WAITPID}"
 
 }
 function rke2-up {
@@ -57,24 +57,20 @@ function rke2-up {
     A3IP=$(getip a3)
 
     echo "Setup RKE2 controlplane on a1 ($A1IP)"
-    "$CURDIR/setup/50-setup-rke2.sh" cp "${SSHUSER}@$A1IP"
+    "$CURDIR"/setup/50-setup-rke2.sh cp ${SSHUSER}@"$A1IP"
 
     echo "Setup RKE2 worker on a2 ($A2IP) and a3 ($A3IP)"
-    "$CURDIR/setup/50-setup-rke2.sh" worker "${SSHUSER}@$A2IP" "192.168.2.1"
-    "$CURDIR/setup/50-setup-rke2.sh" worker "${SSHUSER}@$A3IP" "192.168.2.1"
-    sed -i "s/192.168.2.1/$A1IP/g" "$CURDIR/setup/59-kubeconfig.yaml"
+    "$CURDIR"/setup/50-setup-rke2.sh worker ${SSHUSER}@"$A2IP" "192.168.2.1"
+    "$CURDIR"/setup/50-setup-rke2.sh worker ${SSHUSER}@"$A3IP" "192.168.2.1"
+    sed -i "s/192.168.2.1/$A1IP/g" "$CURDIR"/setup/59-kubeconfig.yaml
 
     echo "RKE2 ready"
 }
 
 function setup-cni {
 
-    A1IP=$(getip a1)
-    A2IP=$(getip a2)
-    A3IP=$(getip a3)
-
     echo "Setup CNI $1"
-    "$CURDIR/setup/60-setup-cni.sh" "$1"
+    "$CURDIR"/setup/60-setup-cni.sh "$1"
 
     echo "Waiting for all pods to be running or completed"
     while [ "$(kubectl get pods -A --no-headers | grep -v Running | grep -v Completed)" != "" ]; do
@@ -91,11 +87,11 @@ function rke2-down {
 
     echo "Tear down RKE2"
     WAITPID=""
-    "$CURDIR/setup/80-teardown-rke2.sh" "${SSHUSER}@$A1IP" &
+    "$CURDIR"/setup/80-teardown-rke2.sh ${SSHUSER}@"$A1IP" &
     WAITPID="$WAITPID $!"
-    "$CURDIR/setup/80-teardown-rke2.sh" "${SSHUSER}@$A2IP" &
+    "$CURDIR"/setup/80-teardown-rke2.sh ${SSHUSER}@"$A2IP" &
     WAITPID="$WAITPID $!"
-    "$CURDIR/setup/80-teardown-rke2.sh" "${SSHUSER}@$A3IP" &
+    "$CURDIR"/setup/80-teardown-rke2.sh ${SSHUSER}@"$A3IP" &
     WAITPID="$WAITPID $!"
 
     echo "Waiting for all servers to be cleaned up"

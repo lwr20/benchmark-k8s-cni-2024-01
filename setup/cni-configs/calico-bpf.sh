@@ -30,7 +30,6 @@ spec:
   # Configures Calico networking.
   calicoNetwork:
     linuxDataplane: BPF
-    hostPorts: null
     # Note: The ipPools section cannot be modified post-install.
     ipPools:
     - blockSize: 26
@@ -50,6 +49,10 @@ metadata:
   name: default
 spec: {}
 EOF
+
+echo "Wait for calico-apiserver to come up"
+sleep 20 # Wait for operator to create calico-apiserver deployment
+kubectl rollout status deployment calico-apiserver -n calico-apiserver  # wait for deployment pods to come up
 
 echo "Patch Felixconfig"
 # Configure Calico to not try to clean up kube-proxy's iptables rules, since kube-proxy can't be disabled in RKE2
