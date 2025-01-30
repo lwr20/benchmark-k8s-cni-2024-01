@@ -35,9 +35,9 @@ function init {
 
     sleep 10
 
-    A1IP=$(getip a1)
-    A2IP=$(getip a2)
-    A3IP=$(getip a3)
+    A1IP=$(getip a1 0)
+    A2IP=$(getip a2 0)
+    A3IP=$(getip a3 0)
 
     WAITPID=""
     "$CURDIR"/setup/20-os-prepare.sh ${SSHUSER}@"$A1IP" &
@@ -52,16 +52,19 @@ function init {
 
 }
 function rke2-up {
-    A1IP=$(getip a1)
-    A2IP=$(getip a2)
-    A3IP=$(getip a3)
+    A1IP_EXT=$(getip a1 0)
+    A2IP_EXT=$(getip a2 0)
+    A3IP_EXT=$(getip a3 0)
+    A1IP=$(getip a1 2)
+    A2IP=$(getip a2 2)
+    A3IP=$(getip a3 2)
 
-    echo "Setup RKE2 controlplane on a1 ($A1IP)"
-    "$CURDIR"/setup/50-setup-rke2.sh cp ${SSHUSER}@"$A1IP"
+    echo "Setup RKE2 controlplane on a1 ($A1IP_EXT)"
+    "$CURDIR"/setup/50-setup-rke2.sh cp ${SSHUSER}@"$A1IP_EXT" "192.168.2.1" "192.168.2.1" $A1IP_EXT
 
-    echo "Setup RKE2 worker on a2 ($A2IP) and a3 ($A3IP)"
-    "$CURDIR"/setup/50-setup-rke2.sh worker ${SSHUSER}@"$A2IP" "192.168.2.1"
-    "$CURDIR"/setup/50-setup-rke2.sh worker ${SSHUSER}@"$A3IP" "192.168.2.1"
+    echo "Setup RKE2 worker on a2 ($A2IP_EXT) and a3 ($A3IP_EXT)"
+    "$CURDIR"/setup/50-setup-rke2.sh worker ${SSHUSER}@"$A2IP_EXT" "192.168.2.1" "192.168.2.2" $A2IP_EXT
+    "$CURDIR"/setup/50-setup-rke2.sh worker ${SSHUSER}@"$A3IP_EXT" "192.168.2.1" "192.168.2.3" $A3IP_EXT
     sed -i "s/192.168.2.1/$A1IP/g" "$CURDIR"/setup/59-kubeconfig.yaml
 
     echo "RKE2 ready"
@@ -81,9 +84,9 @@ function setup-cni {
 }
 
 function rke2-down {
-    A1IP=$(getip a1)
-    A2IP=$(getip a2)
-    A3IP=$(getip a3)
+    A1IP=$(getip a1 2)
+    A2IP=$(getip a2 2)
+    A3IP=$(getip a3 2)
 
     echo "Tear down RKE2"
     WAITPID=""
@@ -165,21 +168,7 @@ function connect-ssh {
 }
 
 function getip {
-    case $1 in
-        a1)
-            metal device get --filter hostname="${CLUSTER_NAME}-a1" --output json | jq -r .[].ip_addresses[0].address
-            ;;
-        a2)
-            metal device get --filter hostname="${CLUSTER_NAME}-a2" --output json | jq -r .[].ip_addresses[0].address
-            ;;
-        a3)
-            metal device get --filter hostname="${CLUSTER_NAME}-a3" --output json | jq -r .[].ip_addresses[0].address
-            ;;
-        *)
-            echo "Unknown server $1"
-            exit 1
-            ;;
-    esac
+	metal device get --filter hostname="${CLUSTER_NAME}-${1}" --output json | jq --argjson i "$2" -r '.[].ip_addresses[$i].address'
 }
 
 [ "$1" = "" ] && echo "Usage: $0 (init|rke2-up|rke2-down|cni <cni>|cleanup)" && exit 1
@@ -210,7 +199,8 @@ while [ "$1" != "" ]; do
             shift
             ;;
         getip|ip)
-            getip "$2"
+            getip "$2" "$3"
+            shift
             shift
             ;;
         *)
