@@ -84,9 +84,9 @@ function setup-cni {
 }
 
 function rke2-down {
-    A1IP=$(getip a1 2)
-    A2IP=$(getip a2 2)
-    A3IP=$(getip a3 2)
+    A1IP=$(getip a1 0)
+    A2IP=$(getip a2 0)
+    A3IP=$(getip a3 0)
 
     echo "Tear down RKE2"
     WAITPID=""
