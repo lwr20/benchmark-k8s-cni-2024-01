@@ -7,7 +7,13 @@ mkdir -p /etc/rancher/rke2/
 cat > /etc/rancher/rke2/config.yaml <<EOF
 token: ibd-benchmark-cni
 cni: none
-disable: 
+node-ip: "{{NODE_IP}}"
+node-external-ip: "{{NODE_IP_EXT}}"
+advertise-address: "{{NODE_IP}}"
+tls-san:
+  - "{{NODE_IP_EXT}}"
+  - "{{NODE_IP}}"
+disable:
 - rke2-ingress-nginx
 - rke2-metrics-server
 - rke2-snapshot-controller

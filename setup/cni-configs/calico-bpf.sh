@@ -2,7 +2,7 @@
 # Source : https://docs.tigera.io/calico/latest/operations/ebpf/install
 
 echo "Setup calico operator"
-kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/tigera-operator.yaml
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/master/manifests/tigera-operator.yaml
 
 echo "Apply configmap"
 # Apply configmap to tell Operator what the real IP/port of the control plane is

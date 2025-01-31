@@ -8,6 +8,8 @@ cat > /etc/rancher/rke2/config.yaml <<EOF
 server: https://{{CONTROLPLANE_IP}}:9345
 token: ibd-benchmark-cni
 cni: none
+node-ip: "{{NODE_IP}}"
+node-external-ip: "{{NODE_IP_EXT}}"
 disable: 
 - rke2-ingress-nginx
 - rke2-metrics-server
